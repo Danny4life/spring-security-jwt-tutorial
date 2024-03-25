@@ -1,6 +1,8 @@
 package com.osiki.Springsecurityjwtdemo.controller;
 
 import com.osiki.Springsecurityjwtdemo.dto.AuthResponse;
+import com.osiki.Springsecurityjwtdemo.dto.LoginRequestDto;
+import com.osiki.Springsecurityjwtdemo.dto.LoginResponse;
 import com.osiki.Springsecurityjwtdemo.dto.RegisterRequestDto;
 import com.osiki.Springsecurityjwtdemo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,14 @@ public class UserController {
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequestDto registerRequestDto){
 
         return ResponseEntity.ok(userService.register(registerRequestDto));
+
+    }
+
+    @PostMapping("/login")
+
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequestDto loginRequestDto){
+
+        return ResponseEntity.ok(userService.login(loginRequestDto));
 
     }
 }

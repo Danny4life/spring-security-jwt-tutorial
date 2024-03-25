@@ -1,9 +1,7 @@
 package com.osiki.Springsecurityjwtdemo.service.impl;
 
 import com.osiki.Springsecurityjwtdemo.config.JwtService;
-import com.osiki.Springsecurityjwtdemo.dto.AuthResponse;
-import com.osiki.Springsecurityjwtdemo.dto.RegisterRequestDto;
-import com.osiki.Springsecurityjwtdemo.dto.RegistrationInfo;
+import com.osiki.Springsecurityjwtdemo.dto.*;
 import com.osiki.Springsecurityjwtdemo.entity.UserEntity;
 import com.osiki.Springsecurityjwtdemo.enums.Role;
 import com.osiki.Springsecurityjwtdemo.repository.UserRepository;
@@ -11,6 +9,7 @@ import com.osiki.Springsecurityjwtdemo.service.UserService;
 import com.osiki.Springsecurityjwtdemo.utils.AccountUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +48,31 @@ public class UserServiceImpl implements UserService {
                         .token(jwtToken)
                         .build())
 
+                //.token(jwtToken)
+                .build();
+    }
+
+    @Override
+    public LoginResponse login(LoginRequestDto loginRequestDto) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequestDto.getEmail(),
+                        loginRequestDto.getPassword()
+                )
+        );
+
+        UserEntity user = userRepository.findByEmail(loginRequestDto.getEmail())
+                .orElseThrow();
+
+        var jwtToken = jwtService.generateToken(user);
+
+        return LoginResponse.builder()
+                .responseCode(AccountUtils.LOGIN_SUCCESS_CODE)
+                .responseMessage(AccountUtils.LOGIN_SUCCESS_MESSAGE)
+                .loginInfo(LoginInfo.builder()
+                        .email(user.getEmail())
+                        .token(jwtToken)
+                        .build())
                 //.token(jwtToken)
                 .build();
     }
