@@ -5,6 +5,7 @@ import com.osiki.Springsecurityjwtdemo.dto.*;
 import com.osiki.Springsecurityjwtdemo.entity.UserEntity;
 import com.osiki.Springsecurityjwtdemo.enums.Role;
 import com.osiki.Springsecurityjwtdemo.repository.UserRepository;
+import com.osiki.Springsecurityjwtdemo.service.EmailSenderService;
 import com.osiki.Springsecurityjwtdemo.service.UserService;
 import com.osiki.Springsecurityjwtdemo.utils.AccountUtils;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final JwtService jwtService;
 
     private final AuthenticationManager authenticationManager;
+    private final EmailSenderService emailService;;
 
     @Override
     public AuthResponse register(RegisterRequestDto registerRequestDto) {
@@ -33,7 +35,16 @@ public class UserServiceImpl implements UserService {
                 .role(Role.USER)
                 .build();
 
-        userRepository.save(user);
+        UserEntity saveUser = userRepository.save(user);
+
+        // send email alert
+        EmailDetails emailDetails = EmailDetails.builder()
+                .recipient(saveUser.getEmail())
+                .subject("ACCOUNT CREATION")
+                .messageBody("Congratulations! Your Account Has Been Successfully Created.")
+                .build();
+        emailService.sendEmailAlert(emailDetails);
+
 
         var jwtToken = jwtService.generateToken(user);
 
