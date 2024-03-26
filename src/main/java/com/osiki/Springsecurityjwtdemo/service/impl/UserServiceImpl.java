@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public AuthResponse register(RegisterRequestDto registerRequestDto) {
         UserEntity user = UserEntity.builder()
-                .firstName(registerRequestDto.getFirstname())
-                .lastName(registerRequestDto.getLastname())
+                .firstName(registerRequestDto.getFirstName())
+                .lastName(registerRequestDto.getLastName())
                 .email(registerRequestDto.getEmail())
                 .password(passwordEncoder.encode(registerRequestDto.getPassword()))
                 .role(Role.USER)
