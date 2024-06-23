@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         emailService.sendEmailAlert(emailDetails);
 
 
-        var jwtToken = jwtService.generateToken(user);
+       // var jwtToken = jwtService.generateToken(user);
 
         return AuthResponse.builder()
                 .responseCode(AccountUtils.ACCOUNT_CREATION_SUCCESS_CODE)
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
                         .firstname(user.getFirstName())
                         .lastname(user.getLastName())
                         .email(user.getEmail())
-                        .token(jwtToken)
+                      //  .token(jwtToken)
                         .build())
 
                 //.token(jwtToken)
