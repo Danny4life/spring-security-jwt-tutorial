@@ -16,11 +16,6 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-
-    // site to generate key --  https://jwt-keys.21no.de/
-
-  // private final static String SECRET_KEY = "aOV/I/Yto++km+DhkK749xlQZmS+xCknj/Cq3OKg3sCM2jE1X4RtrqxAByHVNESbEfD3Y4FXid0kPhdxvXhiHCg9AHY0s0V9R2OqBlAif/Ci1qAEU4NieNfMKSKms9V/X+pxaJeCcbfyODVDVOcBKm6UvG/RspKSNmZD14iBvPf6OmjdWLwk8XHfOwsHneJ0KoaW71a6GedAVSlvbrMpe6+6GrGv8N2J5+BWuSBplsQDL9iTofU9C7waOce/DS+39jX2lKZ+sDUDfTzNCuDXtnkcGYk+9Relh6j5lGm971pMxleAuAu0Xzd/a7UYpQOwuVmEuUs+T30krfGtq3JkXQ5jcQSmFfr4uszijW3TTF8=";
-
     private final static String SECRET_KEY = "ebkFejbn46IhIHUttrWcy+7WHarcct5v3C0ia5QAb93xZR7woNG6nPSdxBKdFZ8hm8VZ4kQ8RRB6XPg4jb/I3A==";
 
 
